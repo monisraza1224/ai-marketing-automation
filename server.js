@@ -3,10 +3,10 @@ const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
 
-// Import routes and middleware
-const apiRoutes = require('./server/routes/apiRoutes.js');
-const ErrorHandler = require('./server/middleware/errorHandler.js');
-const Logger = require('./server/utils/logger.js');
+// Import routes from ROOT folder
+const apiRoutes = require('./apiRoutes.js');
+const ErrorHandler = require('./errorHandler.js');
+const Logger = require('./logger.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,9 +15,6 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-
-// Serve uploaded files
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // API Routes
 app.use(apiRoutes);
@@ -51,9 +48,8 @@ app.use(ErrorHandler.handleError);
 
 // Start server
 app.listen(PORT, () => {
-  Logger.info(`🚀 AI Marketing Automation Server running on port ${PORT}`);
-  Logger.info(`📍 Environment: ${process.env.NODE_ENV}`);
-  Logger.info(`📍 Health check: http://localhost:${PORT}/health`);
+  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`📍 Environment: ${process.env.NODE_ENV}`);
 });
 
 module.exports = app;
