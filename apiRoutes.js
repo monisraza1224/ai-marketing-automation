@@ -4,6 +4,8 @@ const router = express.Router();
 // Import route modules
 const webhookRoutes = require('./webhookRoutes');
 const contentRoutes = require('./contentRoutes');
+const strategyRoutes = require('./strategyRoutes');
+const dashboardRoutes = require('./dashboardRoutes');
 
 // API version prefix
 const API_PREFIX = '/api/v1';
@@ -11,6 +13,8 @@ const API_PREFIX = '/api/v1';
 // Mount routes
 router.use(`${API_PREFIX}/webhooks`, webhookRoutes);
 router.use(`${API_PREFIX}/content`, contentRoutes);
+router.use(`${API_PREFIX}/strategy`, strategyRoutes);
+router.use(`${API_PREFIX}/dashboard`, dashboardRoutes);
 
 // API health check
 router.get(`${API_PREFIX}/health`, (req, res) => {
@@ -21,19 +25,12 @@ router.get(`${API_PREFIX}/health`, (req, res) => {
     timestamp: new Date().toISOString(),
     endpoints: {
       webhooks: `${API_PREFIX}/webhooks`,
-      content: `${API_PREFIX}/content`
+      content: `${API_PREFIX}/content`,
+      strategy: `${API_PREFIX}/strategy`,
+      dashboard: `${API_PREFIX}/dashboard`
     }
   });
 });
-const strategyRoutes = require('./strategyRoutes');
-
-const dashboardRoutes = require('./dashboardRoutes');
-
-// Add to your routes:
-router.use(`${API_PREFIX}/dashboard`, dashboardRoutes);
-
-// Add to your existing routes:
-router.use(`${API_PREFIX}/strategy`, strategyRoutes);
 
 // API documentation endpoint
 router.get(`${API_PREFIX}/docs`, (req, res) => {
@@ -46,15 +43,24 @@ router.get(`${API_PREFIX}/docs`, (req, res) => {
         'POST /webhooks/ghl': 'Process GHL webhooks',
         'POST /webhooks/upload-transcript': 'Upload strategy call transcripts',
         'POST /webhooks/fireflies': 'Process Fireflies.ai webhooks',
-        'POST /webhooks/slack': 'Send Slack notifications'
+        'POST /webhooks/slack': 'Send Slack notifications',
+        'POST /webhooks/lead-engagement': 'Process lead engagement',
+        'POST /webhooks/new-contact': 'Process new contacts'
       },
       content: {
         'POST /content/generate': 'Generate AI content',
         'POST /content/campaign': 'Generate campaign content',
         'POST /content/suggestions': 'Get content suggestions',
-        'POST /content/documents': 'Generate client documents',
-        'POST /content/facebook-campaign': 'Create Facebook campaigns',
-        'POST /content/setup-funnel': 'Setup complete marketing funnel'
+        'POST /content/documents': 'Generate client documents'
+      },
+      strategy: {
+        'POST /strategy/process-call': 'Process strategy call transcripts',
+        'POST /strategy/quick-analyze': 'Quick transcript analysis'
+      },
+      dashboard: {
+        'GET /dashboard/overview': 'Get system overview',
+        'GET /dashboard/ai-performance': 'Get AI performance metrics',
+        'GET /dashboard/health': 'System health check'
       }
     }
   });
