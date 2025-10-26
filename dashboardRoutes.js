@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const DashboardController = require('../controllers/dashboardController');
-const AuthMiddleware = require('../middleware/auth');
+const DashboardController = require('./dashboardController.js');
+const AuthMiddleware = require('./auth.js');
 
 // Apply authentication
 router.use(AuthMiddleware.authenticate);
