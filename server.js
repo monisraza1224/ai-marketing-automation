@@ -49,16 +49,11 @@ app.get('/', (req, res) => {
 app.use(ErrorHandler.handleNotFound);
 app.use(ErrorHandler.handleError);
 
-// Setup unhandled exception handlers
-ErrorHandler.handleUnhandledRejection();
-ErrorHandler.handleUncaughtException();
-
 // Start server
 app.listen(PORT, () => {
   Logger.info(`🚀 AI Marketing Automation Server running on port ${PORT}`);
   Logger.info(`📍 Environment: ${process.env.NODE_ENV}`);
   Logger.info(`📍 Health check: http://localhost:${PORT}/health`);
-  Logger.info(`📍 API Documentation: http://localhost:${PORT}/api/v1/docs`);
 });
 
 module.exports = app;
