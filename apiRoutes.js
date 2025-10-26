@@ -1,12 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-// Import route modules
+const express = require('express');
+const router = express.Router();
+
+// Import route modules from ROOT folder
 const webhookRoutes = require('./webhookRoutes.js');
 const contentRoutes = require('./contentRoutes.js');
 const strategyRoutes = require('./strategyRoutes.js');
 const dashboardRoutes = require('./dashboardRoutes.js');
 
+// ... rest of the file remains the same ...
 // API version prefix
 const API_PREFIX = '/api/v1';
 
@@ -67,3 +71,4 @@ router.get(`${API_PREFIX}/docs`, (req, res) => {
 });
 
 module.exports = router;
+
