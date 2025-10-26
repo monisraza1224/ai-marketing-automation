@@ -1,27 +1,30 @@
 const express = require('express');
 const router = express.Router();
-const WebhookController = require('../controllers/webhookController');
-const UploadMiddleware = require('../middleware/upload');
-
-// Instantiate controller
-const webhookController = new WebhookController();
+const WebhookController = require('./webhookController.js');
+const UploadMiddleware = require('./upload.js');
 
 // GHL Webhook endpoint
-router.post('/ghl', webhookController.handleGHLWebhook.bind(webhookController));
+router.post('/ghl', WebhookController.handleGHLWebhook);
 
 // Strategy call transcript upload
 router.post(
   '/upload-transcript', 
   UploadMiddleware.single,
   UploadMiddleware.cleanupOnError,
-  webhookController.handleStrategyCallUpload.bind(webhookController)
+  WebhookController.handleStrategyCallUpload
 );
 
-// Lead engagement webhook
-router.post('/lead-engagement', webhookController.handleLeadEngagement.bind(webhookController));
+// Fireflies.ai webhook endpoint
+router.post('/fireflies', WebhookController.handleFirefliesWebhook);
 
-// New contact webhook  
-router.post('/new-contact', webhookController.handleNewContact.bind(webhookController));
+// Slack notifications endpoint
+router.post('/slack', WebhookController.handleSlackNotification);
+
+// Lead engagement webhook
+router.post('/lead-engagement', WebhookController.handleLeadEngagement);
+
+// New contact webhook
+router.post('/new-contact', WebhookController.handleNewContact);
 
 // Test webhook endpoint
 router.post('/test', (req, res) => {
@@ -32,15 +35,8 @@ router.post('/test', (req, res) => {
     eventData: { emailId: 'test_email_456' }
   };
   
-  // Process test webhook
-  webhookController.handleLeadEngagement({ body: testData }, res);
+  WebhookController.handleLeadEngagement({ body: testData }, res);
 });
-
-// Fireflies.ai webhook endpoint
-router.post('/fireflies', webhookController.handleFirefliesWebhook.bind(webhookController));
-
-// Slack notifications endpoint
-router.post('/slack', webhookController.handleSlackNotification.bind(webhookController));
 
 // Health check for webhooks
 router.get('/health', (req, res) => {
