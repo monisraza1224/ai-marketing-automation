@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 // Import route modules
-const webhookRoutes = require('./webhookRoutes');
-const contentRoutes = require('./contentRoutes');
-const strategyRoutes = require('./strategyRoutes');
-const dashboardRoutes = require('./dashboardRoutes');
+const webhookRoutes = require('./webhookRoutes.js');
+const contentRoutes = require('./contentRoutes.js');
+const strategyRoutes = require('./strategyRoutes.js');
+const dashboardRoutes = require('./dashboardRoutes.js');
 
 // API version prefix
 const API_PREFIX = '/api/v1';
