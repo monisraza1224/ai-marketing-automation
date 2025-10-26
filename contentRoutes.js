@@ -1,31 +1,28 @@
 const express = require('express');
 const router = express.Router();
-const ContentController = require('../controllers/contentController');
-const AuthMiddleware = require('../middleware/auth');
-
-// Instantiate controller
-const contentController = new ContentController();
+const ContentController = require('./contentController.js');
+const AuthMiddleware = require('./auth.js');
 
 // Apply authentication to all content routes
 router.use(AuthMiddleware.authenticate);
 
 // Generate single content piece
-router.post('/generate', (req, res) => contentController.generateContent(req, res));
+router.post('/generate', (req, res) => ContentController.generateContent(req, res));
 
 // Generate campaign content templates
-router.post('/campaign', (req, res) => contentController.generateCampaignContent(req, res));
+router.post('/campaign', (req, res) => ContentController.generateCampaignContent(req, res));
 
 // Get content performance suggestions
-router.post('/suggestions', (req, res) => contentController.getContentSuggestions(req, res));
+router.post('/suggestions', (req, res) => ContentController.getContentSuggestions(req, res));
 
 // Generate client documents
-router.post('/documents', (req, res) => contentController.generateClientDocuments(req, res));
+router.post('/documents', (req, res) => ContentController.generateClientDocuments(req, res));
 
 // Create Facebook ad campaign
-router.post('/facebook-campaign', (req, res) => contentController.createFacebookCampaign(req, res));
+router.post('/facebook-campaign', (req, res) => ContentController.createFacebookCampaign(req, res));
 
 // Setup complete marketing funnel
-router.post('/setup-funnel', (req, res) => contentController.setupCompleteFunnel(req, res));
+router.post('/setup-funnel', (req, res) => ContentController.setupCompleteFunnel(req, res));
 
 // Get content generation status
 router.get('/status/:jobId', (req, res) => {
