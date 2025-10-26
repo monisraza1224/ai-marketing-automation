@@ -4,9 +4,9 @@ const path = require('path');
 require('dotenv').config();
 
 // Import routes and middleware
-const apiRoutes = require('./server/routes/apiRoutes');
-const ErrorHandler = require('./server/middleware/errorHandler');
-const Logger = require('./server/utils/logger');
+const apiRoutes = require('./server/routes/apiRoutes.js');
+const ErrorHandler = require('./server/middleware/errorHandler.js');
+const Logger = require('./server/utils/logger.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
