@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const StrategyController = require('../controllers/strategyController');
-const AuthMiddleware = require('../middleware/auth');
+const StrategyController = require('./strategyController.js');
+const AuthMiddleware = require('./auth.js');
 
 // Apply authentication
 router.use(AuthMiddleware.authenticate);
